@@ -4,7 +4,7 @@ let express = require('express');
 
 let mysql = require('mysql');
 
-let app=express();
+let app = express();
 
 let hashids = new Hashids();
 
@@ -12,13 +12,14 @@ let short = hashids.encode(1, 2, 3, 5)
 
 let url = "http://localhost:3000/";
 
+let url2 = "wpfLh9i0"
 
 
 let con = mysql.createConnection({
-    host: "",
-    user: "",
-    password: "",
-    database: ""
+    host: "192.151.151.76",
+    user: "node_user",
+    password: "Jasen2424!!",
+    database: "node_url"
   });
 
   let query = 'SELECT * FROM String';
@@ -43,29 +44,49 @@ let con = mysql.createConnection({
 //console.log(url);
 
 
-app.get('/',function(req,res){
+app.get('/:id',function(req,res){
 
-  res.send('hello world')
+  //throw new Error("BROKEN");
 
+ // res.send(req.params.id)
+
+  /*
   con.connect(function(err) {
     if (err) throw err;
 
+    
     con.query(query3, function (err, result, fields) {
       if (err) throw err;
       //console.log(result);
 
+      
       if(result[0].Link === url && result[0].Short === short ){
 console.log(url + short);
       }else{
           console.log("Wrong Data");
       };
 
-      
+
     });
 
 
   });
   
+
+*/
+console.log(req.params.id);
+
+if(req.params.id === url2){
+
+  res.redirect("https://google.com");
+
+}else{
+
+  res.send('Not Valid Url');
+
+};
+
+
 
 
  });
