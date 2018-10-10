@@ -15,10 +15,10 @@ let url = "http://localhost:3000/";
 
 
 let con = mysql.createConnection({
-    host: "192.151.151.76",
-    user: "node_user",
-    password: "Jasen2424!!",
-    database: "node_url"
+    host: "",
+    user: "",
+    password: "",
+    database: ""
   });
 
   let query = 'SELECT * FROM String';
