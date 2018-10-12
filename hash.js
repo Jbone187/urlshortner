@@ -30,10 +30,10 @@ app.post('/send',function(req, res){
 
 
 let con = mysql.createConnection({
-    host: "192.151.151.76",
+    host: "1",
     user: "node_user",
-    password: "Jasen2424!!",
-    database: "node_url"
+    password: "",
+    database: ""
   });
 
   //let query = 'SELECT * FROM String';
