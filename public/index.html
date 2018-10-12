@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Url Shortner</title>
+  </head>
+  <body>
+
+        <form action="/" method="POST">
+            URL:<br>
+            <input type="text" name="url">
+            <br>
+            <input type="submit" id="btn" value="Submit">
+          </form> 
+          
+
+
+
+
+  <script>
+    
+    document.getElementById("btn").addEventListener("click", run);
+
+function run(){
+
+fetch("http://localhost:3000",{
+        method: "POST",
+        
+        //what ever data you want to post with key value pair        
+        }).then( (response) => { 
+        //do something awesome that makes the world a better place
+        
+        });
+};
+    </script>
+  </body>
+</html>
 
