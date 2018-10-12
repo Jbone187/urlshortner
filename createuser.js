@@ -25,9 +25,9 @@ app.use(express.static('public'));
 
 
 let con = mysql.createConnection({
-    host: "192.151.151.76",
-    user: "node_user",
-    password: "Jasen2424!!",
+    host: "",
+    user: "",
+    password: "",
     database: "node_url"
   });
 
