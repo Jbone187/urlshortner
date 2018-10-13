@@ -6,9 +6,9 @@
   </head>
   <body>
 
-        <form action="/" method="POST">
+        <form>
             URL:<br>
-            <input type="text" name="url">
+            <input  type="text" id="url" name="url">
             <br>
             <input type="submit" id="btn" value="Submit">
           </form> 
@@ -18,21 +18,40 @@
 
 
   <script>
-    
-    document.getElementById("btn").addEventListener("click", run);
+
+document.getElementById("btn").addEventListener("click", run);
+
+
+
+
 
 function run(){
 
+let data = document.getElementById("url").value
+
+alert(data);
+
 fetch("http://localhost:3000",{
         method: "POST",
-        
+        body: JSON.stringify({url: data}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
         //what ever data you want to post with key value pair        
         }).then( (response) => { 
         //do something awesome that makes the world a better place
-        
+        alert("Good Job");
+
+        window.location.href = 'http://localhost:3000';
         });
+
+        
+       
+
+        
 };
+
+
     </script>
   </body>
 </html>
-
