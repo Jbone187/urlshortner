@@ -1,4 +1,4 @@
-let Hashids = require('hashids');
+//let Hashids = require('hashids');
 
 let bodyParser = require('body-parser');
 
@@ -8,7 +8,7 @@ let mysql = require('mysql');
 
 let app = express();
 
-let hashids = new Hashids();
+//let hashids = new Hashids();
 
 
 
@@ -28,41 +28,33 @@ let con = mysql.createConnection({
     host: "",
     user: "",
     password: "",
-    database: "node_url"
+    database: ""
   });
 
 
 
   app.post('/',function(req, res){
 
-    let num = Math.floor((Math.random() * 10) + 1);
+   
 
-    console.log(num);
+    let short = Math.random().toString(36).substr(2, 5)
 
-    let short = hashids.encode(num, num, num)
+    console.log(short);
+
 
     let query2 = `insert into String(Link, Short) values('${req.body.url}', '${short}')`;
 
     console.log(req.body.url);
     
     
-    
-
-    con.connect(function(err) {
-      if (err) throw err;
-      con.query(query2, function (err, result, fields) {
+    con.query(query2, function (err, result, fields) {
         if (err) throw err;
-        console.log(result);
-        res.send(url + short);
+        console.log(result)
+
+        
       });
+
+      res.send("Pass");
+
     });
     
-    });
-
-
- app.listen(3000,function(){
- 
-     console.log("Node is Running on Port 3000");
- 
- });
- 
