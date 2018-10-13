@@ -1,6 +1,8 @@
-let Hashids = require('hashids');
+//let Hashids = require('hashids');
 
 let bodyParser = require('body-parser');
+
+let fs = require('fs');
 
 let express = require('express');
 
@@ -8,11 +10,11 @@ let mysql = require('mysql');
 
 let app = express();
 
-let hashids = new Hashids();
+//let hashids = new Hashids();
 
-let short = hashids.encode(1, 2, 3, 5)
 
-//let url = "http://localhost:3000/";
+
+let url = "http://localhost:3000/";
 
 //let url2 = "wpfLh9i0"
 
@@ -20,21 +22,57 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
-/*
+app.use(express.static('public'));
 
-app.post('/send',function(req, res){
-
-});
-
-*/
 
 
 let con = mysql.createConnection({
-    host: "1",
-    user: "node_user",
+    host: "",
+    user: "",
     password: "",
     database: ""
   });
+
+
+
+  app.post('/',function(req, res){
+
+   
+
+    let short = Math.random().toString(36).substr(2, 5)
+
+    console.log(short);
+
+    let answer = url + "/" + short;
+
+    fs.writeFile("./public/data.json", JSON.stringify(answer), (err) => {
+      if (err) {
+          console.error(err);
+          return;
+      };
+      console.log("File has been created");
+  });
+
+    let query2 = `insert into String(Link, Short) values('${req.body.url}', '${short}')`;
+
+    console.log(req.body.url);
+    
+    
+    con.query(query2, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result)
+
+        
+      });
+console.log(answer);
+      res.send(answer);
+
+      
+
+    });
+    
+    
+
 
   //let query = 'SELECT * FROM String';
 
@@ -83,7 +121,7 @@ let con = mysql.createConnection({
 
 //console.log(url);
 
-
+/*
 app.get('/:id',function(req, res){
 
 
@@ -95,6 +133,8 @@ app.get('/:id',function(req, res){
   
     con.query(query5, [req.params.id], function (error, result, fields) {
 
+      console.log(result);
+
       if (error) {
         // console.log("error ocurred",error);
         res.send({
@@ -103,13 +143,12 @@ app.get('/:id',function(req, res){
         });
   };
   console.log(result.length);
-  console.log(typeof result);
-  
+
   if(result.length > 0){
 
     if(req.params.id){
       console.log(result.length);
-      console.log(result);
+      console.log(result[0].Link);
 
       res.redirect(result[0].Link);
     
@@ -133,7 +172,7 @@ app.get('/:id',function(req, res){
 
 });
 
-
+*/
 
 
 
@@ -202,3 +241,4 @@ if(req.params.id === url2){
      console.log("Node is Running on Port 3000");
  
  });
+ 
