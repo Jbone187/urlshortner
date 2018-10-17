@@ -1,5 +1,7 @@
 let bodyParser = require('body-parser');
 
+var validUrl = require('valid-url');
+
 let fs = require('fs');
 
 let express = require('express');
@@ -31,35 +33,42 @@ let con = mysql.createConnection({
 
   app.post('/',function(req, res){
 
-   let short = Math.random().toString(36).substr(2, 5)
-
-    console.log(short);
-
-    let answer = url + short;
-
-//Creates Json file that has new url
-    fs.writeFile("./public/data.json", JSON.stringify(answer), (err) => {
-      if (err) {
-          console.error(err);
-          return;
-      };
-      console.log("File has been created");
-  });
-
-    let query1 = `insert into String(Link, Short) values('${req.body.url}', '${short}')`;
-
     console.log(req.body.url);
+
+    if (validUrl.isUri(req.body.url)){
+
+        let short = Math.random().toString(36).substr(2, 5)
+
+        console.log(short);
     
+        let answer = url + short;
     
-    con.query(query1, function (err, result, fields) {
-        if (err) throw err;
-        console.log(result)
- 
+    //Creates Json file that has new url
+        fs.writeFile("./public/data.json", JSON.stringify(answer), (err) => {
+          if (err) {
+              console.error(err);
+              return;
+          };
+          console.log("File has been created");
       });
-
-    console.log(answer);
-      res.send("Pass");  
-
+    
+        let query1 = `insert into String(Link, Short) values('${req.body.url}', '${short}')`;
+    
+        console.log(req.body.url);
+        
+        
+        con.query(query1, function (err, result, fields) {
+            if (err) throw err;
+            console.log(result)
+     
+          });
+    
+        console.log(answer);
+          res.send("Pass"); 
+        
+        };
+        
+       
     });
     
 
