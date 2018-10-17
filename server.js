@@ -1,6 +1,6 @@
 let bodyParser = require('body-parser');
 
-var validUrl = require('valid-url');
+let validUrl = require('valid-url');
 
 let fs = require('fs');
 
