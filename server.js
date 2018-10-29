@@ -31,6 +31,7 @@ let con = mysql.createConnection({
 app.post("/", function(req, res) {
   //Validate url
   if (validUrl.isUri(req.body.url)) {
+    //Generate random verbiage
     let short = Math.random()
       .toString(36)
       .substr(2, 5);
