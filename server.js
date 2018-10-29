@@ -34,7 +34,7 @@ app.post("/", function(req, res) {
     //Generate random verbiage
     let short = Math.random()
       .toString(36)
-      .substr(2, 5);
+      .substring(2, 30);
 
     //Makes url string
     let answer = url + short;
