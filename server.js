@@ -20,31 +20,24 @@ app.use(express.static("public"));
 
 //Connection String
 let con = mysql.createConnection({
-  host: "",
-  user: "",
-  password: "",
-  database: ""
+  host: "192.151.151.76",
+  user: "node_user",
+  password: "Jasen2424!!",
+  database: "node_url"
 });
 
 //Post request to create short url and add to db
 
 app.post("/", function(req, res) {
+  //Validate url
   if (validUrl.isUri(req.body.url)) {
     let short = Math.random()
       .toString(36)
       .substr(2, 5);
 
+    //Makes url string
     let answer = url + short;
-
-    //Creates Json file that has new url
-    fs.writeFile("./public/data.json", JSON.stringify(answer), err => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log("File has been created");
-    });
-
+    //Sql query
     let query1 = `insert into String(Link, Short) values('${
       req.body.url
     }', '${short}')`;
@@ -53,8 +46,8 @@ app.post("/", function(req, res) {
       if (err) throw err;
       console.log(result);
     });
-
-    res.send("Pass");
+    //Json data send to client side
+    res.json(answer);
   }
 });
 
