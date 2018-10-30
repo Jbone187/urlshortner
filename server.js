@@ -1,13 +1,10 @@
-// I suggest grouping all your variables together in "blocks"
-// meaning no line breaks between them.
 let bodyParser = require("body-parser");
 let validUrl = require("valid-url");
 let express = require("express");
-let mysql = require("mysql");
+const mysql = require("mysql");
 let url = "http://localhost:3000/";
 let app = express();
 
-// Same with the app.use - grouping them all together makes it easier to read.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
@@ -15,7 +12,7 @@ app.use(express.static("public"));
 //Connection String
 // if this doesn't change, use const. Also, try using a more descriptive name instead of 'con'.
 // that way, it's easier for other developers to read your code.
-let con = mysql.createConnection({
+const connection = mysql.createConnection({
   host: "",
   user: "",
   password: "",
@@ -40,7 +37,7 @@ app.post("/", function(req, res) {
       req.body.url
     }', '${short}')`;
 
-    con.query(query1, function(err, result, fields) {
+   connection.query(query1, function(err, result, fields) {
       if (err) throw err;
       console.log(result);
     });
@@ -56,8 +53,8 @@ app.get("/:id", function(req, res) {
   let query2 = "SELECT* FROM String WHERE Short = ?";
   // if you can, try to be more consistent with your spelling. Sometimes you capitalize words and othertimes you don't.
   // Do whatever you prefer, but make sure it's consistent.
-  con.connect(function(error) {
-    con.query(query2, [req.params.id], function(error, result, fields) {
+  connection.connect(function(error) {
+    connection.query(query2, [req.params.id], function(error, result, fields) {
       if (error) {
         res.send({
           code: 400,
