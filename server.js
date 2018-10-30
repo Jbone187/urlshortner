@@ -1,3 +1,5 @@
+// I suggest grouping all your variables together in "blocks"
+// meaning no line breaks between them.
 let bodyParser = require("body-parser");
 
 let validUrl = require("valid-url");
@@ -9,7 +11,7 @@ let mysql = require("mysql");
 let url = "http://localhost:3000/";
 
 let app = express();
-
+// Same with the app.use - grouping them all together makes it easier to read.
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
@@ -17,6 +19,8 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Connection String
+// if this doesn't change, use const. Also, try using a more descriptive name instead of 'con'.
+// that way, it's easier for other developers to read your code.
 let con = mysql.createConnection({
   host: "",
   user: "",
@@ -27,6 +31,7 @@ let con = mysql.createConnection({
 //Post request to create short url and add to db
 
 app.post("/", function(req, res) {
+  //These are great comments you have here!
   //Validate url
   if (validUrl.isUri(req.body.url)) {
     //Generate random verbiage
@@ -46,6 +51,7 @@ app.post("/", function(req, res) {
       console.log(result);
     });
     //Json data send to client side
+    // nice work!
     res.json(answer);
   }
 });
@@ -54,7 +60,8 @@ app.post("/", function(req, res) {
 
 app.get("/:id", function(req, res) {
   let query2 = "SELECT* FROM String WHERE Short = ?";
-
+  // if you can, try to be more consistent with your spelling. Sometimes you capitalize words and othertimes you don't.
+  // Do whatever you prefer, but make sure it's consistent.
   con.connect(function(error) {
     con.query(query2, [req.params.id], function(error, result, fields) {
       if (error) {
@@ -63,7 +70,7 @@ app.get("/:id", function(req, res) {
           failed: "error ocurred"
         });
       }
-
+      // Add a few comments here to explain what you're doing
       if (result.length > 0) {
         if (req.params.id) {
           res.redirect(result[0].Link);
