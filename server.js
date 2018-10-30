@@ -2,8 +2,6 @@ let bodyParser = require("body-parser");
 
 let validUrl = require("valid-url");
 
-let fs = require("fs");
-
 let express = require("express");
 
 let mysql = require("mysql");
