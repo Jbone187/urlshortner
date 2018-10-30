@@ -1,21 +1,15 @@
 // I suggest grouping all your variables together in "blocks"
 // meaning no line breaks between them.
 let bodyParser = require("body-parser");
-
 let validUrl = require("valid-url");
-
 let express = require("express");
-
 let mysql = require("mysql");
-
 let url = "http://localhost:3000/";
-
 let app = express();
+
 // Same with the app.use - grouping them all together makes it easier to read.
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(bodyParser.json());
-
 app.use(express.static("public"));
 
 //Connection String
