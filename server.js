@@ -10,8 +10,6 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Connection String
-// if this doesn't change, use const. Also, try using a more descriptive name instead of 'con'.
-// that way, it's easier for other developers to read your code.
 const connection = mysql.createConnection({
   host: "",
   user: "",
@@ -20,7 +18,6 @@ const connection = mysql.createConnection({
 });
 
 //Post request to create short url and add to db
-
 app.post("/", function(req, res) {
   //These are great comments you have here!
   //Validate url
