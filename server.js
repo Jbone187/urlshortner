@@ -58,7 +58,7 @@ app.get("/:id", function(req, res) {
           failed: "error ocurred"
         });
       }
-      // Add a few comments here to explain what you're doing
+      // Searches DB for results associated with query 
       if (result.length > 0) {
         if (req.params.id) {
           res.redirect(result[0].Link);
