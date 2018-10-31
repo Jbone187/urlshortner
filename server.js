@@ -39,7 +39,6 @@ app.post("/", function(req, res) {
       console.log(result);
     });
     //Json data send to client side
-    // nice work!
     res.json(answer);
   }
 });
