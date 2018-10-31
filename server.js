@@ -44,7 +44,6 @@ app.post("/", function(req, res) {
 });
 
 // Get request that allow created url to do redirct to url stored on db
-
 app.get("/:id", function(req, res) {
   let query2 = "SELECT* FROM String WHERE Short = ?";
   // if you can, try to be more consistent with your spelling. Sometimes you capitalize words and othertimes you don't.
