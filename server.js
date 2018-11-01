@@ -39,17 +39,14 @@ app.post("/", function(req, res) {
       console.log(result);
     });
     //Json data send to client side
-    // nice work!
     res.json(answer);
   }
 });
 
 // Get request that allow created url to do redirct to url stored on db
-
 app.get("/:id", function(req, res) {
-  let query2 = "SELECT* FROM String WHERE Short = ?";
-  // if you can, try to be more consistent with your spelling. Sometimes you capitalize words and othertimes you don't.
-  // Do whatever you prefer, but make sure it's consistent.
+  let query2 = "select* from string where short = ?";
+  
   connection.connect(function(error) {
     connection.query(query2, [req.params.id], function(error, result, fields) {
       if (error) {
