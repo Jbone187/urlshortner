@@ -19,7 +19,6 @@ const connection = mysql.createConnection({
 
 //Post request to create short url and add to db
 app.post("/", function(req, res) {
-  //These are great comments you have here!
   //Validate url
   if (validUrl.isUri(req.body.url)) {
     //Generate random verbiage
