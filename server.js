@@ -1,11 +1,11 @@
 // If you haven't learned already, I would read this: https://wesbos.com/let-vs-const/
 // Since you're declaring these once and not changing them, I suggest using const.
-let bodyParser = require("body-parser");
-let validUrl = require("valid-url");
-let express = require("express");
+const bodyParser = require("body-parser");
+const validUrl = require("valid-url");
+const express = require("express");
 const mysql = require("mysql");
-let url = "http://localhost:3000/";
-let app = express();
+const url = "http://localhost:3000/";
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,7 +13,7 @@ app.use(express.static("public"));
 
 //Connection String
 // It might be better to call this 'dbConnection' so other developers know it's for connecting to the database.
-const connection = mysql.createConnection({
+const dbConnection = mysql.createConnection({
   host: "",
   user: "",
   password: "",
@@ -36,7 +36,7 @@ app.post("/", function(req, res) {
       req.body.url
     }', '${short}')`;
 
-   connection.query(query1, function(err, result, fields) {
+    dbConnection.query(query1, function(err, result, fields) {
       if (err) throw err;
       // Maybe remove this console log?
       console.log(result);
@@ -50,8 +50,12 @@ app.post("/", function(req, res) {
 app.get("/:id", function(req, res) {
   let query2 = "select* from string where short = ?";
 
-  connection.connect(function(error) {
-    connection.query(query2, [req.params.id], function(error, result, fields) {
+  dbConnection.connect(function(error) {
+    dbConnection.query(query2, [req.params.id], function(
+      error,
+      result,
+      fields
+    ) {
       if (error) {
         res.send({
           code: 400,
