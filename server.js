@@ -1,3 +1,5 @@
+// If you haven't learned already, I would read this: https://wesbos.com/let-vs-const/
+// Since you're declaring these once and not changing them, I suggest using const.
 let bodyParser = require("body-parser");
 let validUrl = require("valid-url");
 let express = require("express");
@@ -10,6 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Connection String
+// It might be better to call this 'dbConnection' so other developers know it's for connecting to the database.
 const connection = mysql.createConnection({
   host: "",
   user: "",
@@ -35,6 +38,7 @@ app.post("/", function(req, res) {
 
    connection.query(query1, function(err, result, fields) {
       if (err) throw err;
+      // Maybe remove this console log?
       console.log(result);
     });
     //Json data send to client side
@@ -45,7 +49,7 @@ app.post("/", function(req, res) {
 // Get request that allow created url to do redirct to url stored on db
 app.get("/:id", function(req, res) {
   let query2 = "select* from string where short = ?";
-  
+
   connection.connect(function(error) {
     connection.query(query2, [req.params.id], function(error, result, fields) {
       if (error) {
@@ -54,13 +58,14 @@ app.get("/:id", function(req, res) {
           failed: "error ocurred"
         });
       }
-      // Searches DB for results associated with query 
+      // Searches DB for results associated with query
       if (result.length > 0) {
         if (req.params.id) {
           res.redirect(result[0].Link);
         }
       } else {
-        res.send("Not Valid Url");
+        // What response code will this send back?
+        res.send("Not a valid URL");
       }
     });
   });
@@ -69,5 +74,5 @@ app.get("/:id", function(req, res) {
 /*--------------------Routing Over----------------------------*/
 
 app.listen(3000, function() {
-  console.log("Node is Running on Port 3000");
+  console.log("Node is Running on port 3000");
 });
