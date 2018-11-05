@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Connection String
-// It might be better to call this 'dbConnection' so other developers know it's for connecting to the database.
+// It might be better to call this 'dbConnection' so other developers know it's for connecting to the database. Updated
 const dbConnection = mysql.createConnection({
   host: "",
   user: "",
@@ -37,9 +37,9 @@ app.post("/", function(req, res) {
     }', '${short}')`;
 
     dbConnection.query(query1, function(err, result, fields) {
-      if (err) throw err;
-      // Maybe remove this console log?
-      console.log(result);
+      if (err)
+        // Maybe remove this console log? Updated
+        throw err;
     });
     //Json data send to client side
     res.json(answer);
@@ -59,7 +59,7 @@ app.get("/:id", function(req, res) {
       if (error) {
         res.send({
           code: 400,
-          failed: "error ocurred"
+          failed: "DB Error Ocurred"
         });
       }
       // Searches DB for results associated with query
@@ -68,8 +68,11 @@ app.get("/:id", function(req, res) {
           res.redirect(result[0].Link);
         }
       } else {
-        // What response code will this send back?
-        res.send("Not a valid URL");
+        // What response code will this send back? Updated
+        res.send({
+          code: 500,
+          failed: "DB Error Ocurred"
+        });
       }
     });
   });
