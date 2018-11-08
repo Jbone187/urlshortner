@@ -1,5 +1,3 @@
-// If you haven't learned already, I would read this: https://wesbos.com/let-vs-const/
-// Since you're declaring these once and not changing them, I suggest using const. Updated 11/5
 const bodyParser = require("body-parser");
 const validUrl = require("valid-url");
 const express = require("express");
@@ -12,7 +10,6 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Connection String
-// It might be better to call this 'dbConnection' so other developers know it's for connecting to the database. Updated 11/5
 const dbConnection = mysql.createConnection({
   host: "",
   user: "",
@@ -37,9 +34,7 @@ app.post("/", function(req, res) {
     }', '${short}')`;
 
     dbConnection.query(query1, function(err, result, fields) {
-      if (err)
-        // Maybe remove this console log? Updated 11/5
-        throw err;
+      if (err) throw err;
     });
     //Json data send to client side
     res.json(answer);
@@ -68,7 +63,6 @@ app.get("/:id", function(req, res) {
           res.redirect(result[0].Link);
         }
       } else {
-        // What response code will this send back? Updated 11/5
         res.send({
           code: 500,
           failed: "DB Error Ocurred"
