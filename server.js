@@ -43,7 +43,7 @@ app.post("/", function(req, res) {
 
 // Get request that allow created url to do redirct to url stored on db
 app.get("/:id", function(req, res) {
-  let query2 = "select* from string where short = ?";
+  let query2 = "select* from string where Short = ?";
 
   dbConnection.connect(function(error) {
     dbConnection.query(query2, [req.params.id], function(
