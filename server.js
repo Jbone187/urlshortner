@@ -2,8 +2,10 @@ const bodyParser = require("body-parser");
 const validUrl = require("valid-url");
 const express = require("express");
 const mysql = require("mysql");
-const url = "http://localhost:3000/";
+const url = process.env.url;
+const dotenv = require("dotenv");
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -11,10 +13,10 @@ app.use(express.static("public"));
 
 //Connection String
 const dbConnection = mysql.createConnection({
-  host: "",
-  user: "",
-  password: "",
-  database: ""
+  host: process.env.host,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.db
 });
 
 //Post request to create short url and add to db
